@@ -4,6 +4,10 @@ pom.xml.*
 release.properties
 gen-external-apklibs/
 
+# Gradle
+.gradle
+build
+
 # IntelliJ
 out/
 .idea/
