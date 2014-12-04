@@ -15,23 +15,23 @@ public class SimpleCrypt {
     private static String defaultSalt = "default";
     private Cipher ecipher, dcipher;
 
-    static {
-        try {
-            System.loadLibrary("leyndo");
-        } catch (UnsatisfiedLinkError e) {
-            if ("Dalvik".equals(System.getProperty("java.vm.name"))) {
-                throw e;
-            }
-        }
-    }
+    // static {
+    //     try {
+    //         System.loadLibrary("leyndo");
+    //     } catch (UnsatisfiedLinkError e) {
+    //         if ("Dalvik".equals(System.getProperty("java.vm.name"))) {
+    //             throw e;
+    //         }
+    //     }
+    // }
 
     public native String getSalt();
     public char[] getSaltMix() {
-        if ("Dalvik".equals(System.getProperty("java.vm.name"))) {
-            return getSalt().toCharArray();
-        } else {
-            return defaultSalt.toCharArray();
-        }
+        // if ("Dalvik".equals(System.getProperty("java.vm.name"))) {
+        //     return getSalt().toCharArray();
+        // } else {
+        return defaultSalt.toCharArray();
+	//}
     }
 
     public static SimpleCrypt withSpecialSalt(String specialSalt) {

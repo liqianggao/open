@@ -13,7 +13,7 @@ import com.mapzen.open.fragment.ItemFragment;
 import com.mapzen.open.util.Logger;
 
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
-import com.splunk.mint.Mint;
+//import com.splunk.mint.Mint;
 
 import org.oscim.layers.marker.ItemizedLayer;
 import org.oscim.layers.marker.MarkerItem;
@@ -202,7 +202,7 @@ public class PagerResultsFragment extends BaseFragment {
             mapFragment.clearMarkers();
             mapFragment.updateMap();
         } catch (NullPointerException npe) {
-            Mint.logException(npe);
+            //Mint.logException(npe);
         }
     }
 

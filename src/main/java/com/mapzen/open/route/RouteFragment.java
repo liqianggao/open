@@ -22,7 +22,7 @@ import com.mapzen.osrm.Router;
 
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-import com.splunk.mint.Mint;
+//import com.splunk.mint.Mint;
 
 import org.json.JSONObject;
 import org.oscim.core.GeoPoint;
@@ -630,7 +630,7 @@ public class RouteFragment extends BaseFragment implements DirectionListFragment
             db.setTransactionSuccessful();
             db.endTransaction();
         } catch (IllegalStateException e) {
-            Mint.logException(e);
+            //Mint.logException(e);
         }
     }
 
@@ -641,7 +641,7 @@ public class RouteFragment extends BaseFragment implements DirectionListFragment
                 Logger.e("error inserting into db");
             }
         } catch (IllegalStateException e) {
-            Mint.logException(e);
+            //Mint.logException(e);
         }
     }
 
@@ -741,7 +741,7 @@ public class RouteFragment extends BaseFragment implements DirectionListFragment
             db.update(TABLE_GROUPS, cv, COLUMN_TABLE_ID + " = ?",
                     new String[] { groupId });
         } catch (IllegalStateException e) {
-            Mint.logException(e);
+            //Mint.logException(e);
         }
     }
 

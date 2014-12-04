@@ -51,6 +51,9 @@ import static com.mapzen.open.activity.BaseActivity.COM_MAPZEN_UPDATES_LOCATION;
 import static com.mapzen.open.core.MapzenLocation.COM_MAPZEN_FIND_ME;
 import static org.oscim.layers.marker.ItemizedLayer.OnItemGestureListener;
 
+import org.oscim.theme.ThemeFile;
+import org.oscim.theme.VtmThemes;
+
 public class MapFragment extends BaseFragment {
     public static final int DURATION = 800;
     public static final int CACHE_SIZE = 1024 * 1024 * 10; // 10 Megs
@@ -152,10 +155,11 @@ public class MapFragment extends BaseFragment {
         });
     }
 
-    public void setTheme(MapzenStyle.Theme theme) {
-        IRenderTheme t = ThemeLoader.load(theme);
-        baseLayer.setRenderTheme(t);
-        MapRenderer.setBackgroundColor(t.getMapBackground());
+    public void setTheme(ThemeFile theme) {
+	getMap().setTheme(VtmThemes.DEFAULT);
+        //IRenderTheme t = ThemeLoader.load(theme);
+        //baseLayer.setRenderTheme(VtmThemes.DEFAULT);
+        //MapRenderer.setBackgroundColor(t.getMapBackground());
         getMap().clearMap();
     }
 
@@ -170,9 +174,11 @@ public class MapFragment extends BaseFragment {
     }
 
     private void setupMap() {
-        final OSciMap4TileSource tileSource = new OSciMap4TileSource(getTileBaseSource());
+        //final OSciMap4TileSource tileSource = new OSciMap4TileSource(getTileBaseSource());
+        final OSciMap4TileSource tileSource = new OSciMap4TileSource();
 
         tileSource.setHttpEngine(new OkHttpEngine.OkHttpFactory(getTileCache()));
+
         baseLayer = getMap().setBaseMap(tileSource);
 
         getMap().layers().add(new BuildingLayer(getMap(), baseLayer));
