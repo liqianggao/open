@@ -1,6 +1,8 @@
 package com.mapzen.open.util;
 
-import org.oscim.backend.GL20;
+import static org.oscim.backend.GLAdapter.gl;
+
+import org.oscim.backend.GL;
 import org.oscim.core.Box;
 import org.oscim.core.Point;
 import org.oscim.core.Tile;
@@ -95,10 +97,10 @@ public class RouteLocationIndicator extends Layer {
         public void update(GLViewport v) {
             if (!initialized) {
                 shader = GLShader.createProgram(VERTEX_SHADER, FRAGMENT_SHADER);
-                vertexPosition = GL.glGetAttribLocation(shader, "a_pos");
-                matrixPosition = GL.glGetUniformLocation(shader, "u_mvp");
-                rotation = GL.glGetUniformLocation(shader, "u_degree");
-                scale = GL.glGetUniformLocation(shader, "u_scale");
+                vertexPosition = gl.getAttribLocation(shader, "a_pos");
+                matrixPosition = gl.getUniformLocation(shader, "u_mvp");
+                rotation = gl.getUniformLocation(shader, "u_degree");
+                scale = gl.getUniformLocation(shader, "u_scale");
                 initialized = true;
             }
 
@@ -154,7 +156,7 @@ public class RouteLocationIndicator extends Layer {
             GLState.blend(true);
             GLState.test(false, false);
 
-            GL.glBindBuffer(GL20.GL_ARRAY_BUFFER, 0);
+            gl.bindBuffer(GL.ARRAY_BUFFER, 0);
 
             FloatBuffer mVertices;
             final float[] mVerticesData = {
@@ -171,10 +173,10 @@ public class RouteLocationIndicator extends Layer {
             mVertices.put(mVerticesData);
             mVertices.flip();
 
-            GL.glVertexAttribPointer(vertexPosition, 3, GL20.GL_FLOAT, false, 0, mVertices);
+            gl.vertexAttribPointer(vertexPosition, 3, GL.FLOAT, false, 0, mVertices);
 
             GLState.enableVertexArrays(vertexPosition, -1);
-            GL.glUniform1f(rotation, degrees);
+            gl.uniform1f(rotation, degrees);
 
             float scaleValue = SCALE_FACTOR * v.pos.getZoomLevel();
             if (scaleValue > MAX_SCALE) {
@@ -183,7 +185,7 @@ public class RouteLocationIndicator extends Layer {
                 scaleValue = MIN_SCALE;
             }
 
-            GL.glUniform1f(scale, scaleValue);
+            gl.uniform1f(scale, scaleValue);
 
             double x = indicatorPosition.x - v.pos.x;
             double y = indicatorPosition.y - v.pos.y;
@@ -194,7 +196,7 @@ public class RouteLocationIndicator extends Layer {
             v.mvp.setAsUniform(matrixPosition);
 
             if (visible > 1) {
-                GL.glDrawArrays(GL20.GL_TRIANGLE_FAN, 0, 4);
+                gl.drawArrays(GL.TRIANGLE_FAN, 0, 4);
             }
         }
     }
